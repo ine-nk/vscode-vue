@@ -4,28 +4,40 @@
   <h2>Актуальные новости {{ now }}</h2>
 </div>
 
-<div class="card" v-for="item in news" :key="item">
-  <h3> {{ item }} </h3>
-  <button class="btn" @click="isOpen = !isOpen">Открыть</button>
-  <p v-if="isOpen">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea illo odit eligendi ratione aliquid nesciunt natus minus excepturi earum! Odit veritatis sequi et suscipit assumenda eius corporis ab exercitationem repellat!
-  </p>
-</div>
+<app-news
+v-for="item in news"
+:key="item.id"
+:title="item.title"
+:id="item.id"
+:is-open="item.isOpen"
+></app-news>
 
 </div>
 </template>
 
 <script>
+import AppNews from './AppNews'
 
 export default {
   data () {
     return {
       now: new Date().toLocaleDateString(),
-      isOpen: false,
       news: [
-        'Джо Байден победил',
-        'Vue 3 успешно работает'
+        {
+          title: 'Джо Байден победил',
+          id: 1,
+          isOpen: false
+        },
+        {
+          title: 'Vue 3 успешно работает',
+          id: 2,
+          isOpen: false
+        }
       ]
     }
+  },
+  components: {
+    'app-news': AppNews
   }
 }
 </script>
