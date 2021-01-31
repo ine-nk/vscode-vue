@@ -2,6 +2,9 @@
 <div class="container pt-1">
 <div class="card">
   <h2>Актуальные новости {{ now }}</h2>
+  <span>Открыто: <strong> {{ openRate }} </strong> |
+    Прочитано:  <strong> {{ readRate }} </strong>
+  </span>
 </div>
 
 <app-news
@@ -10,6 +13,9 @@ v-for="item in news"
 :title="item.title"
 :id="item.id"
 :is-open="item.isOpen"
+:was-read="item.wasRead"
+@open-news="openNews"
+@read-news="readNews"
 ></app-news>
 
 </div>
@@ -22,18 +28,31 @@ export default {
   data () {
     return {
       now: new Date().toLocaleDateString(),
+      openRate: 0,
+      readRate: 0,
       news: [
         {
           title: 'Джо Байден победил',
           id: 1,
-          isOpen: false
+          isOpen: false,
+          wasRead: false
         },
         {
           title: 'Vue 3 успешно работает',
           id: 2,
-          isOpen: false
+          isOpen: false,
+          wasRead: false
         }
       ]
+    }
+  },
+  methods: {
+    openNews () {
+      this.openRate++
+    },
+    readNews (id) {
+      this.readRate++
+      console.log(id)
     }
   },
   components: {
