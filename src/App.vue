@@ -16,6 +16,7 @@ v-for="item in news"
 :was-read="item.wasRead"
 @open-news="openNews"
 @read-news="readNews"
+@unmark="unreadNews"
 ></app-news>
 
 </div>
@@ -51,8 +52,15 @@ export default {
       this.openRate++
     },
     readNews (id) {
+      const idx = this.news.findIndex(news => news.id === id)
+      this.news[idx].wasRead = true
       this.readRate++
-      console.log(id)
+      // console.log(id)
+    },
+    unreadNews (id) {
+      const news = this.news.find(news => news.id === id)
+      news.wasRead = false
+      this.readRate--
     }
   },
   components: {
